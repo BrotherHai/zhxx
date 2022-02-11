@@ -5,10 +5,22 @@ on:
     branches:
       - main
   schedule:   
-    - cron: '10 * * * *'   #国际标准时间，北京时间+8，即下午1点钟
-
+    - cron: '27 * * * *'   #国际标准时间，北京时间+8，即下午1点钟
 jobs:
-  Explore-GitHub-Actions:
+  build:
+
     runs-on: ubuntu-latest
+
     steps:
-      - run: curl http://cj.liuxiaohai.xyz/index.php?s=/Admin/Index/caiji
+    - name: checkout actions
+    - uses: actions/checkout@v1
+
+    - name: Set up Python 3.7
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.7
+		
+    - name: Update paper list
+      run: |
+        python cj.py
+		
